@@ -11,7 +11,6 @@ function App() {
   const [search, setSearch] = useState('');
   const [view, setView] = useState('list');
   const [currentPost, setCurrentPost] = useState({ title: '', content: '', status: 'Draft', image: '', category: 'General' });
-  
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
