@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
@@ -17,18 +17,18 @@ function App() {
     document.body.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
   }, [isDarkMode]);
 
-  useEffect(() => {
-    fetchPosts();
-  }, [search]);
-
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     try {
       const response = await axios.get(`${API_URL}?search=${search}`);
       setPosts(response.data);
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
-  };
+  }, [search]);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
 
   const handleSave = async (e) => {
     e.preventDefault();
